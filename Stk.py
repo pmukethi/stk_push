@@ -31,13 +31,13 @@ class Stk():
         """
         access_token = ""
         if not cache.get("access_token"):
-            url = "https://api.safaricom.co.ke/oauth/v1/generate"#get(endpoint['authentication']
+            url = get(endpoint['authentication'])
             querystring = {"grant_type":"client_credentials"}
             payload = ""
             headers = {
-                'Authorization': "Basic VjRnRVg0NDl5TmZLTkJMMHRKYlVlQU5vOXlNcTJ1Q1M6YzhxWUd1b1gwT2F2d0VnNA==",
+                'Authorization': "Basic 1223",
                 'cache-control': "no-cache",
-                'Postman-Token': "a84e115b-2721-47fb-8040-466ce1f31e7f"
+                'Postman-Token': "123234"
                 }
             response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
             access_token = json.loads(response.text)['access_token']
@@ -58,11 +58,11 @@ class Stk():
 
 
     def stk_push(self, amount, msisdn, account_no, transaction_desc):
-        access_token = self.authentication() #'jJIGoQRsBJKRaxG7QAHs5mj9IP9U'
+        access_token = self.authentication() 
 	#print 'Test', access_token
         
-        timestamp = '20190305203322'#datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')
-        password = 'NjAwNTY0ZDgwMjkyODY1NGRjZDA3NDkyOWQ5NzJmNGY2YzY5ZDM5ZjI1Mjg5YTZjMjk2NDIxNjM3NjNlNzQ0M2ZlMzMyMTIwMTkwMzA1MjAzMzIy'#self.encrypt_sp_password(timestamp)
+        timestamp = datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')
+        password =self.encrypt_sp_password(timestamp)
 
 	#print password
 
@@ -93,7 +93,7 @@ class Stk():
     def stk_push_query(self, checkoutRequestID):
         access_token = self.authentication()
         timestamp = datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')
-        password = 'NjAwNTY0ZDgwMjkyODY1NGRjZDA3NDkyOWQ5NzJmNGY2YzY5ZDM5ZjI1Mjg5YTZjMjk2NDIxNjM3NjNlNzQ0M2ZlMzMyMTIwMTkwMzA1MjAzMzIy'
+        password = get(endpoint['password'])
         headers = { "Authorization": "Bearer %s" % access_token }
         request = {
             "BusinessShortCode": service['shortcode'],
